@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crush ơi, xem đi nè!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffeef2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            height: 600px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            width: 100%;
+        }
+
+        .slide.active {
+            display: flex;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 24pt;
+            color: #d63384;
+            margin-bottom: 20px;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 350px;
+            background-color: #f8f9fa;
+            border: 3px dashed #ffc107;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #6c757d;
+            font-size: 11pt;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start; /* Nút nằm bên trái phía dưới */
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 12pt;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #e84118;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Slide cuối cùng không cần nút */
+        #slide5 .btn-container {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Chèn nhạc nền ở đây (Thay link nhạc của m vào src) -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        
+        <!-- Slide 1: Trang chủ -->
+        <div class="slide active" id="slide1">
+            <h1>Top những lí do bạn nên yêu tôi 🥰</h1>
+            <div class="img-placeholder">
+                <!-- Thay link ảnh 1 vào src -->
+                <img src="https://picsum.photos/500/600?random=1" alt="Ảnh trang chủ">
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="nextSlide(2)">Kế</button>
+            </div>
+        </div>
+
+        <!-- Slide 2: Đẹp trai -->
+        <div class="slide" id="slide2">
+            <h1>Tôi đẹp trai 😎</h1>
+            <div class="img-placeholder">
+                <!-- Thay link ảnh 2 vào src -->
+                <img src="https://picsum.photos/500/600?random=2" alt="Ảnh đẹp trai">
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="nextSlide(3)">Tiếp</button>
+            </div>
+        </div>
+
+        <!-- Slide 3: Ga lăng -->
+        <div class="slide" id="slide3">
+            <h1>Tôi ga lăng 🌹</h1>
+            <div class="img-placeholder">
+                <!-- Thay link ảnh 3 vào src -->
+                <img src="https://picsum.photos/500/600?random=3" alt="Ảnh ga lăng">
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="nextSlide(4)">Tiếp</button>
+            </div>
+        </div>
+
+        <!-- Slide 4: Yêu em -->
+        <div class="slide" id="slide4">
+            <h1>Và đặc biệt là tôi yêu em ❤️</h1>
+            <div class="img-placeholder">
+                <!-- Thay link ảnh 4 vào src -->
+                <img src="https://picsum.photos/500/600?random=4" alt="Ảnh yêu em">
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="nextSlide(5)">Tiếp</button>
+            </div>
+        </div>
+
+        <!-- Slide 5: Slide cuối (Tự động chuyển sau 5s từ slide 4 hoặc bấm tiếp) -->
+        <div class="slide" id="slide5">
+            <h1>Mãi bên nhau bạn nhớooo 🦄</h1>
+            <div class="img-placeholder">
+                <!-- Thay link ảnh cuối vào src -->
+                <img src="https://picsum.photos/500/600?random=5" alt="Ảnh cuối">
+            </div>
+            <div class="btn-container"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let musicStarted = false;
+
+        function nextSlide(slideNumber) {
+            // Phát nhạc ngay khi bấm nút "Kế" đầu tiên (Tránh chính sách chặn tự động phát của trình duyệt)
+            if (!musicStarted) {
+                let music = document.getElementById('bg-music');
+                music.play().catch(e => console.log("Chờ tương tác để phát nhạc"));
+                musicStarted = true;
+            }
+
+            // Ẩn tất cả các slide
+            let slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            // Hiện slide được chọn
+            let currentSlide = document.getElementById('slide' + slideNumber);
+            if (currentSlide) {
+                currentSlide.classList.add('active');
+            }
+
+            // Nếu qua slide 4, kích hoạt tự động chuyển sang slide 5 sau 5 giây (5000ms)
+            if (slideNumber === 4) {
+                setTimeout(function() {
+                    // Kiểm tra xem hiện tại có đang ở slide 4 không (tránh việc người dùng đã bấm nút tiếp rồi)
+                    if (document.getElementById('slide4').classList.contains('active')) {
+                        nextSlide(5);
+                    }
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
